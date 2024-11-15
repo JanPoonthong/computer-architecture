@@ -1,7 +1,10 @@
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println(decimalToHexadecimal(479));
+        System.out.println(decimalToHexadecimal(14));
         System.out.println(binaryToHexadecimal("10110111"));
+        System.out.println(hexadecimalToDecimal("23E"));
     }
 
     public static StringBuilder decimalToBinary(int number) {
@@ -58,4 +61,30 @@ public class Main {
         return decimalToHexadecimal(decimal);
     }
 
+    public static double hexadecimalToDecimal(String hexadecimal) {
+        if (hexadecimal == null || hexadecimal.isEmpty()) {
+            throw new IllegalArgumentException("Binary number cannot be null or empty");
+        }
+
+        char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+
+        double decimal = 0;
+        int length = hexadecimal.length() - 1;
+        for (int index = 0; index != hexadecimal.length(); index++) {
+            char digit = hexadecimal.charAt(index);
+            int value = -1;
+            for (int i = 0; i < hexDigits.length; i++) {
+                if (hexDigits[i] == digit) {
+                    value = i;
+                    break;
+                }
+            }
+            if (value != -1) {
+                decimal += value * Math.pow(16, length-index);
+            } else {
+                throw new IllegalArgumentException("Invalid character in binary number: " + digit);
+            }
+        }
+        return decimal;
+    }
 }
