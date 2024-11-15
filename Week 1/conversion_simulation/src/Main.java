@@ -1,6 +1,7 @@
 public class Main {
     public static void main(String[] args) {
         System.out.println(decimalToHexadecimal(479));
+        System.out.println(binaryToHexadecimal("10110111"));
     }
 
     public static StringBuilder decimalToBinary(int number) {
@@ -51,4 +52,10 @@ public class Main {
 
         return hexString.reverse().toString();
     }
+
+    public static String binaryToHexadecimal(String binary) {
+        int decimal = (int) binaryToDecimal(binary);
+        return decimalToHexadecimal(decimal);
+    }
+
 }
