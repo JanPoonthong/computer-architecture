@@ -1,9 +1,6 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
-        System.out.println(binaryToDecimal("1101"));
+        System.out.println(decimalToHexadecimal(479));
     }
 
     public static StringBuilder decimalToBinary(int number) {
@@ -39,5 +36,19 @@ public class Main {
             }
         }
         return decimal;
+    }
+
+    public static String decimalToHexadecimal(int number) {
+        if (number == 0) return "0";
+        char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+        StringBuilder hexString = new StringBuilder();
+
+        while (number > 0) {
+            int remainder = number % 16;
+            hexString.append(hexDigits[remainder]);
+            number = number / 16;
+        }
+
+        return hexString.reverse().toString();
     }
 }
