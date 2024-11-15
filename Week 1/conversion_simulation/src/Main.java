@@ -3,27 +3,41 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(decimalToBinary(12));
+        System.out.println(binaryToDecimal("1101"));
     }
 
     public static StringBuilder decimalToBinary(int number) {
-        List<Integer> binaryDigits = new ArrayList<>();
+        if (number == 0) {
+            return new StringBuilder("0");
+        }
+        StringBuilder binaryRepresentation = new StringBuilder();
 
-        while (true) {
+        while (number != 0) {
             int remainder = number % 2;
-            binaryDigits.add(remainder);
+            binaryRepresentation.append(remainder);
             number = number / 2;
-            if (remainder == 1) {
-                binaryDigits.add(number);
-                break;
-            };
         }
 
-        StringBuilder binaryString = new StringBuilder();
-        for (int digit: binaryDigits) {
-            binaryString.append(digit);
+        return binaryRepresentation.reverse();
+    }
+
+    public static double binaryToDecimal(String binaryNumber) {
+        if (binaryNumber == null || binaryNumber.isEmpty()) {
+            throw new IllegalArgumentException("Binary number cannot be null or empty");
         }
 
-        return binaryString.reverse();
+        double decimal = 0;
+        int length = binaryNumber.length() - 1;
+        for (int index = 0; index != binaryNumber.length(); index++) {
+            char digit = binaryNumber.charAt(index);
+            if (digit != '0' && digit != '1') {
+                throw new IllegalArgumentException("Invalid character in binary number: " + digit);
+            }
+
+            if (digit == '1') {
+                decimal += 1 * Math.pow(2, length-index);
+            }
+        }
+        return decimal;
     }
 }
